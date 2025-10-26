@@ -11,6 +11,12 @@ public class Race {
         this.cars = cars;
     }
 
+    public void moveAll(int randomNumber) {
+        for(Car car : cars) {
+            car.move(randomNumber);
+        }
+    }
+
     public List<String> findWinners() {
         int maxLocation = findMaxLocation();
 
