@@ -15,3 +15,32 @@
 - 이름을 구분할 때 쉽표를 사용했는지
 - 이름이 중복되는지
 --- 
+## 📦 프로젝트 구조 및 역할
+
+```
+racingcar
+├── controller
+│   ├── CarNameParser
+│   └── RacingGameController
+├── domain
+│   ├── Car
+│   └── Race
+├── service
+│   └── RacingGameService
+├── validator
+│   └── InputValidator
+├── view
+│   ├── InputView
+│   └── OutputView
+└── Application
+
+```
+
+| 패키지 | 역할 |
+| --- | --- |
+| **controller** | 사용자의 입력 흐름을 제어하고, View ↔ Service를 연결 |
+| **domain** | 순수한 비즈니스 로직 담당. 자동차와 경주 관련 핵심 규칙 정의 |
+| **service** | 도메인을 기반으로 실제 1 라운드 "경주" 로직 수행 |
+| **validator** | 입력 값 유효성 검사 (도메인 진입 전 잘못된 데이터 차단) |
+| **view** | 콘솔 입력 및 출력 화면 처리 (UI 계층) |
+| **Application** | `main()` 진입점, 게임 실행 시작 위치 |
