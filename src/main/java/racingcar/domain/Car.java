@@ -31,4 +31,8 @@ public class Car {
     public int getLocation() {
         return location;
     }
+
+    public boolean isMaxLocation(int max) {
+        return this.location == max;
+    }
 }
