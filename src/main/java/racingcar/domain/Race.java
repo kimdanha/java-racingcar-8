@@ -1,9 +1,6 @@
 package racingcar.domain;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Race {
 
@@ -15,11 +12,12 @@ public class Race {
     }
 
     private void validateCars(List<Car> cars) {
-        Set<String> names = new HashSet<>();
-        for(Car car : cars) {
-            if(!names.add(car.getName())) {
-                throw new IllegalArgumentException("자동차 이름은 중복될 수 없습니다.");
-            }
+        long distinctCount = cars.stream()
+                .map(Car::getName)
+                .distinct()
+                .count();
+        if(distinctCount != cars.size()) {
+            throw new IllegalArgumentException("자동차 이름은 중복될 수 없습니다.");
         }
     }
 
@@ -32,23 +30,17 @@ public class Race {
     public List<String> findWinners() {
         int maxLocation = findMaxLocation();
 
-        List<String> winners = new ArrayList<>();
-        for (Car car : cars) {
-            if (car.isMaxLocation(maxLocation)) {
-                winners.add(car.getName());
-            }
-        }
-        return winners;
+        return cars.stream()
+                .filter(car -> car.isMaxLocation(maxLocation))
+                .map(Car::getName)
+                .toList();
     }
 
     private int findMaxLocation() {
-        int max = 0;
-        for (Car car : cars) {
-            if (car.getLocation() > max) {
-                max = car.getLocation();
-            }
-        }
-        return max;
+        return cars.stream()
+                .mapToInt(Car::getLocation)
+                .max()
+                .orElse(0);
     }
 
     public List<Car> getCars() {
